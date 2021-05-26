@@ -1,5 +1,6 @@
-package com.social.network.icapture.model;
+package com.social.network.icapture.security;
 
+import com.social.network.icapture.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;

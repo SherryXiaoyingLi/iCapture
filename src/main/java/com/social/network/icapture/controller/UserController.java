@@ -1,12 +1,11 @@
 package com.social.network.icapture.controller;
 
 
-import com.social.network.icapture.model.CustomUserDetails;
+import com.social.network.icapture.security.CustomUserDetails;
 import com.social.network.icapture.model.User;
 import com.social.network.icapture.security.JwtTokenService;
-import com.social.network.icapture.service.IdentityService;
+import com.social.network.icapture.service.UserService;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,23 +19,23 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/users")
-public class UserIdentityController {
-
-    private final Logger logger = LoggerFactory.getLogger("AppsDeveloperBlog");
+public class UserController {
 
     @Autowired
     private JwtTokenService jwtTokenService;
     @Autowired
-    private IdentityService identityService;
+    private UserService userService;
     @Autowired
     private AuthenticationManager authenticationManager;
+    @Autowired
+    private Logger logger;
 
 
     @PostMapping(value = "/register")
     public ResponseEntity<Object> register(@Valid @RequestBody User user) {
         logger.info(String.format("Getting new user: %s", user.toString()));
         String jwt = jwtTokenService.generateToken(
-                new CustomUserDetails(identityService.signUp(user)));
+                new CustomUserDetails(userService.signUp(user)));
         return new ResponseEntity<>(jwt, HttpStatus.OK);
     }
 
@@ -48,7 +47,7 @@ public class UserIdentityController {
                             user.getUsername(), user.getPassword()));
 
         String jwt = jwtTokenService.generateToken(
-                identityService.loadUserByUsername(user.getUsername()));
+                userService.loadUserByUsername(user.getUsername()));
         return new ResponseEntity<>(jwt, HttpStatus.OK);
     }
 

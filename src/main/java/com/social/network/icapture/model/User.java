@@ -27,7 +27,7 @@ public class User {
     private String bio;
 
 
-    public User(long userId, String username, String password,
+    public User(@NotNull long userId, @NotNull String username, @NotNull String password,
                 String website, String bio) {
         this.userId = userId;
         this.username = username;

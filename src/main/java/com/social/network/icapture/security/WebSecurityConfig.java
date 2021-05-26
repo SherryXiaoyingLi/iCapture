@@ -1,6 +1,6 @@
 package com.social.network.icapture.security;
 
-import com.social.network.icapture.service.IdentityService;
+import com.social.network.icapture.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return new IdentityService();
+        return new UserService();
     }
 
     @Bean
