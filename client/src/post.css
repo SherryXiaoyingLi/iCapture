@@ -1,0 +1,25 @@
+.post-footer {
+    /* background-color: #333; */
+    overflow: hidden;
+}
+
+.post-footer ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.post-footer li {
+    display: block;
+    float: left;
+    padding: 14px 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.post-pic {
+    width: 600px;
+    height: 600px;
+}
