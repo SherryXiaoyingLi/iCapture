@@ -1,0 +1,54 @@
+.header {
+  background-color: #333;
+  overflow: hidden;
+}
+
+.header ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.header ul li {
+  display: block;
+  float: left;
+  padding: 14px 16px;
+  font-weight: bold;
+  color: #f2f2f2;
+  text-align: center;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.header ul li img {
+  width: 30px;
+  height: 30px;
+}
+
+.react-link{
+  text-decoration: none;
+  color: #f2f2f2;
+}
+
+.footer {
+  background-color: #333;
+  overflow: hidden;
+}
+
+.footer ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.footer ul li {
+  display: block;
+  float: left;
+  padding: 14px 16px;
+  font-weight: bold;
+  color: #f2f2f2;
+  text-align: center;
+  text-decoration: none;
+  font-size: 17px;
+}
+

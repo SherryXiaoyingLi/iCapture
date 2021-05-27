@@ -1,6 +1,6 @@
 package com.social.network.icapture.security;
 
-import com.social.network.icapture.service.IdentityService;
+import com.social.network.icapture.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,7 +20,7 @@ import java.io.IOException;
 public class JwtTokenFilter extends OncePerRequestFilter {
 
     @Autowired
-    private IdentityService identityService;
+    private UserService userService;
 
     @Autowired
     private JwtTokenService jwtTokenService;
@@ -39,7 +39,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         }
         // Get jwt token and validate
         final String token = header.split(" ")[1].trim();
-        UserDetails userDetails = identityService.loadUserByUsername(jwtTokenService.extractUsername(token));
+        UserDetails userDetails = userService.loadUserByUsername(jwtTokenService.extractUsername(token));
 
         if (!jwtTokenService.validateToken(token, userDetails) ) {
             chain.doFilter(request, response);
