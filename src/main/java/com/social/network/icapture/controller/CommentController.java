@@ -17,10 +17,11 @@ public class CommentController {
     @Autowired
     private Logger logger;
 
-    @PostMapping("/")
-    public ResponseEntity<Long> writeComment(@RequestBody Comment comment) {
-        long commentId = commentService.addComment(comment);
+    @PostMapping("/{photoId}")
+    public ResponseEntity<Long> writeComment(@PathVariable long photoId, @RequestBody Comment comment) {
+        long commentId = commentService.addComment(photoId, comment);
         return new ResponseEntity<>(commentId, HttpStatus.OK);
     }
+
 
 }

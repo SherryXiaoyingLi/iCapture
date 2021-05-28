@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
 
-@Document(collation = "comment")
+@Document(collection = "comment")
 public class Comment {
 
     @Id
