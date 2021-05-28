@@ -5,7 +5,7 @@ import './../../post.css';
 class PostFooter extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {likes: 0};
+        this.state = {likes: props.likes};
         this.handleLike = this.handleLike.bind(this);
     }
 
@@ -17,12 +17,13 @@ class PostFooter extends React.Component {
 
 
     render() {
-        return (<div class="post-footer">
+        return (<div className="post-footer">
                     <ul>
                         <li onClick={this.handleLike}>like this post</li>
                         <li><Link to="/likes">{this.state.likes}</Link></li>
                         <li><Link to="/comments">comments</Link></li>
                     </ul>
+                    <p>{this.props.time}</p>
                 </div>);
     }
 } 
