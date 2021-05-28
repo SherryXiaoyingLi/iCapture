@@ -7,6 +7,8 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class PhotoRepository {
 
@@ -22,6 +24,11 @@ public class PhotoRepository {
         query.addCriteria(Criteria.where("photoId").is(photoId));
         Photo photo = mongoTemplate.findOne(query, Photo.class);
         return photo;
+    }
+
+    public List<Photo> findAll() {
+        List<Photo> photoList = mongoTemplate.findAll(Photo.class);
+        return photoList;
     }
 
     public Photo updateOnePhoto(Photo photo) {

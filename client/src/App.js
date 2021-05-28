@@ -4,7 +4,7 @@ import HomeContainer from './components/home/HomeContainer'
 import NewPostContainer from './components/newPost/NewPostContainer';
 import ProfileContainer from './components/profile/ProfileContainer';
 import LikesContainer from './components/home/likes';
-import CommentsContainer from './components/home/comments';
+import CommentsContainer from './components/home/comments/CommentsContainer';
 import './styles.css';
 
 // //TODO: change to functional compopnent if don't need to handle states

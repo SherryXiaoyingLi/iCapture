@@ -5,6 +5,8 @@ import com.social.network.icapture.repository.PhotoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PhotoService {
 
@@ -14,5 +16,10 @@ public class PhotoService {
     public long addPhoto(Photo photo) {
         Photo newPhoto = photoRepository.insertPhoto(photo);
         return newPhoto.getPhotoId();
+    }
+
+    public List<Photo> getAllPhotos() {
+        List<Photo> photoList = photoRepository.findAll();
+        return photoList;
     }
 }
