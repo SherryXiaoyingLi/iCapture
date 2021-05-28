@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react'
 import PostContainer from "./PostContainer";
 
@@ -5,12 +6,27 @@ import PostContainer from "./PostContainer";
 class VerticalScroller extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {postUrls: [`${process.env.PUBLIC_URL}/assets/pic.jpg`, `${process.env.PUBLIC_URL}/assets/pic.jpg`]}
+        this.state = { postList: [] }
     } 
 
+    async componentDidMount() {
+        const response = await axios.get('http://localhost:8080/api/photos/public', {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization":
+                `${process.env.bearerToken}`
+            }
+        })
+
+        this.setState({postList: response.data})
+        
+    }
+
+
     render() {
-        let postList = this.state.postUrls.map((url) =>
-            <li key={url}><PostContainer url={url}/></li>
+
+        let postList = this.state.postList.map((post) =>
+            <li key={post.photoId}><PostContainer post={post}/></li>
         )
 
         return <ul>{postList}</ul>;
