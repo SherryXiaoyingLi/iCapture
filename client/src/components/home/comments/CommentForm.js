@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
-class CommentForm extends React.Component {
+export default class CommentForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {value: 'Add a comment...'}
@@ -16,7 +17,7 @@ class CommentForm extends React.Component {
     async handleSubmit(event) {
         
         let obj = {"commentId": 1, "content": this.state.value, "userId": 1}
-        let photoId = '1';
+        let photoId = '3';
 
         // place before axios.post, by default re-render the page
         event.preventDefault();
@@ -25,7 +26,7 @@ class CommentForm extends React.Component {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization":
-                `${process.env.bearerToken}`
+                `${process.env.REACT_APP_BEARER_TOKEN}`
             }
         })
         let commentid = response.data;
@@ -47,4 +48,6 @@ class CommentForm extends React.Component {
     }
 }
 
-export default CommentForm;
+CommentForm.propTypes = {
+    handleNewComment: PropTypes.func.isRequired
+}

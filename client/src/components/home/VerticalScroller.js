@@ -14,7 +14,7 @@ class VerticalScroller extends React.Component {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization":
-                `${process.env.bearerToken}`
+                `${process.env.REACT_APP_BEARER_TOKEN}`
             }
         })
 
