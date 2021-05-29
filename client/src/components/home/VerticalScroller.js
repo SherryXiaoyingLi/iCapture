@@ -1,36 +1,37 @@
 import axios from 'axios';
-import React from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import PostContainer from "./PostContainer";
+import { Context } from './../../context';
 
+function VerticalScroller() {
 
-class VerticalScroller extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = { postList: [] }
-    } 
+    const [postList, setPostList] = useState([]);
 
-    async componentDidMount() {
-        const response = await axios.get('http://localhost:8080/api/photos/public', {
+    let auth = useContext(Context);
+    
+
+    // effect function is synchronous, use the following for asynchronous call
+    useEffect(() => {
+        async function fetchData() {
+            const response = await axios.get('http://localhost:8080/api/photos/public', {
             headers: {
                 "Content-Type": "application/json",
-                "Authorization":
-                `${process.env.REACT_APP_BEARER_TOKEN}`
-            }
-        })
+                "Authorization": "Bearer " + auth.token
+                }
+            })
+            setPostList(response.data)
+        }
+        fetchData();
+    }, [auth.token]) // or [someId] if effect needs some state or prop
 
-        this.setState({postList: response.data})
-        
-    }
 
+    let posts = postList.map((post) =>
+        <li key={post.photoId}><PostContainer post={post}/></li>
+    )
 
-    render() {
-
-        let postList = this.state.postList.map((post) =>
-            <li key={post.photoId}><PostContainer post={post}/></li>
-        )
-
-        return <ul>{postList}</ul>;
-    }
+    return <ul>{posts}</ul>;
+    
 }
+
 
 export default VerticalScroller;
