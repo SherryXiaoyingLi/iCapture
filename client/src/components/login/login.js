@@ -1,12 +1,5 @@
-// import React from 'react';
-// import PropTypes from 'prop-types';
+import LoginForm from "./loginForm";
 
-// export default function Login() {
-//     return (
-
-//     )
-// }
-
-// Login.propTypes = {
-
-// }
+export default function Login(props) {
+    return <LoginForm setAuth={props.setAuth}/>
+}
