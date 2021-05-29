@@ -1,22 +1,21 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
+import { Context } from './../../../context';
 
-class CommentForm extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {value: 'Add a comment...'}
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+function CommentForm(props) {
 
-    handleChange(event) {
-        this.setState({value: event.target.value});
-    }
+    const [stateValue, setStateValue] = useState('Add a comment')
+    let auth = useContext(Context);
 
-    async handleSubmit(event) {
+    var handleChange = (event) => {
+        setStateValue(event.target.value);
+    };
+
+    var handleSubmit = async (event) => {
         
-        let obj = {"commentId": 1, "content": this.state.value, "userId": 1}
-        let photoId = '1';
+        let obj = {"commentId": 1, "content": stateValue, "userId": auth.user.userId}
+        let photoId = '3';
 
         // place before axios.post, by default re-render the page
         event.preventDefault();
@@ -24,27 +23,28 @@ class CommentForm extends React.Component {
         const response = await axios.post('http://localhost:8080/api/comments/'+ photoId, obj, {
             headers: {
                 "Content-Type": "application/json",
-                "Authorization":
-                `${process.env.bearerToken}`
+                "Authorization": "Bearer " + auth.token
             }
         })
         let commentid = response.data;
         console.log(commentid)
 
         // use this.state.value set previously to handle submission
-        this.props.handleNewComment(this.state.value);
+        props.handleNewComment(stateValue);
         
     }
 
-    render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <textarea value={this.state.value} onChange={this.handleChange} />
+            <form onSubmit={handleSubmit}>
+                <textarea value={stateValue} onChange={handleChange} />
                 <input type="submit" value="Post" />
             </form>
 
         );
-    }
+}
+
+CommentForm.propTypes = {
+    handleNewComment: PropTypes.func.isRequired
 }
 
 export default CommentForm;

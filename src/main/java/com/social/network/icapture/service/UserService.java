@@ -1,9 +1,12 @@
 package com.social.network.icapture.service;
 
 import com.social.network.icapture.exception.UserAlreadyExistsException;
+import com.social.network.icapture.model.AuthenticationRequest;
+import com.social.network.icapture.model.AuthenticationResponse;
 import com.social.network.icapture.security.CustomUserDetails;
 import com.social.network.icapture.model.User;
 import com.social.network.icapture.repository.UserRepository;
+import com.social.network.icapture.security.JwtTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,6 +21,8 @@ public class UserService implements UserDetailsService {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private JwtTokenService jwtTokenService;
 
     public User signUp(User user) {
 
@@ -50,6 +55,27 @@ public class UserService implements UserDetailsService {
 
     public User getUser(long userId) {
         return userRepository.findOneById(userId);
+    }
+
+    public AuthenticationResponse handleLoginRequest(AuthenticationRequest request) {
+        String jwt = jwtTokenService.generateToken(
+                loadUserByUsername(request.getUsername()));
+        User user = userRepository.findOneByUsername(request.getUsername());
+        return new AuthenticationResponse(user, jwt);
+
+    }
+
+    public AuthenticationResponse handleRegistrationRequest(AuthenticationRequest request) {
+        User user = new User(18, request.getUsername(), request.getPassword(), "", "");
+        if (checkIfExists(user.getUsername())) {
+            throw new UserAlreadyExistsException(user);
+        }
+        encodePassword(user);
+        user = userRepository.insertUser(user);
+        String jwt = jwtTokenService.generateToken(
+                new CustomUserDetails(user));
+        return new AuthenticationResponse(user, jwt);
+
     }
 
 }

@@ -1,8 +1,9 @@
 package com.social.network.icapture.controller;
 
 
+import com.social.network.icapture.model.AuthenticationRequest;
+import com.social.network.icapture.model.AuthenticationResponse;
 import com.social.network.icapture.security.CustomUserDetails;
-import com.social.network.icapture.model.User;
 import com.social.network.icapture.security.JwtTokenService;
 import com.social.network.icapture.service.UserService;
 import org.slf4j.Logger;
@@ -32,23 +33,20 @@ public class UserController {
 
 
     @PostMapping(value = "/register")
-    public ResponseEntity<Object> register(@Valid @RequestBody User user) {
-        logger.info(String.format("Getting new user: %s", user.toString()));
-        String jwt = jwtTokenService.generateToken(
-                new CustomUserDetails(userService.signUp(user)));
-        return new ResponseEntity<>(jwt, HttpStatus.OK);
+    public ResponseEntity<Object> register(@Valid @RequestBody AuthenticationRequest request) {
+        AuthenticationResponse response = userService.handleRegistrationRequest(request);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 
     @PostMapping(value = "/login")
-    public ResponseEntity<String> login(@RequestBody User user) {
+    public ResponseEntity<Object> login(@RequestBody AuthenticationRequest request) {
         authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            user.getUsername(), user.getPassword()));
+                            request.getUsername(), request.getPassword()));
 
-        String jwt = jwtTokenService.generateToken(
-                userService.loadUserByUsername(user.getUsername()));
-        return new ResponseEntity<>(jwt, HttpStatus.OK);
+        AuthenticationResponse response = userService.handleLoginRequest(request);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping(value = "/logout")
