@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import { Context } from './../../../context';
+import { Context } from './../../context'
 
 function CommentForm(props) {
 

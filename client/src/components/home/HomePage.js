@@ -1,16 +1,16 @@
 import React from 'react';
-import StoryContainer from './StoryContainer';
+import HorizontalScroller from './HorizontalScroller';
 import VerticalScroller from './VerticalScroller';
-import Header from './../Header';
-import Footer from './../Footer';
+import Header from './Header';
+import Footer from './Footer';
 
-class HomeContainer extends React.Component {
+class HomePage extends React.Component {
     render() {
         return (
             <div>
                 <Header />
                 <hr />
-                <StoryContainer />
+                <HorizontalScroller />
                 <hr />
                 <VerticalScroller />
                 <hr />
@@ -20,4 +20,4 @@ class HomeContainer extends React.Component {
     }
 }
 
-export default HomeContainer;
+export default HomePage;

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect, useContext } from 'react'
-import PostContainer from "./PostContainer";
+import Post from "./../posts/Post"
 import { Context } from './../../context';
 
 function VerticalScroller() {
@@ -26,7 +26,7 @@ function VerticalScroller() {
 
 
     let posts = postList.map((post) =>
-        <li key={post.photoId}><PostContainer post={post}/></li>
+        <li key={post.photoId}><Post post={post}/></li>
     )
 
     return <ul>{posts}</ul>;
