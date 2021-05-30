@@ -1,11 +1,11 @@
 import React, { useState} from 'react';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
-import HomeContainer from './components/home/HomeContainer'
-import NewPostContainer from './components/newPost/NewPostContainer';
-import ProfileContainer from './components/profile/ProfileContainer';
-import LikesContainer from './components/home/likes';
-import CommentsContainer from './components/home/comments/CommentsContainer';
-import Login from './components/login/Login';
+import HomePage from './components/home/HomePage'
+import NewPostPage from './components/newPost/NewPostPage';
+import ProfilePage from './components/profile/ProfilePage';
+import LikesPage from './components/likes/likesPage';
+import CommentsPage from './components/comments/CommentsPage';
+import LoginPage from './components/login/LoginPage';
 import {Context} from './context';
 import './styles.css';
 
@@ -15,7 +15,7 @@ function App() {
         const [auth, setAuth] = useState();
 
         if (!auth) {
-            return <Login setAuth={setAuth} />;
+            return <LoginPage setAuth={setAuth} />;
         }
 
         return (
@@ -23,11 +23,11 @@ function App() {
             <Context.Provider value={auth}>
                 <Router>
                     <div>
-                        <Route path="/" exact component={HomeContainer}/>
-                        <Route path="/post" exact component={NewPostContainer} />
-                        <Route path="/profile" exact component={ProfileContainer} />
-                        <Route path="/likes" exact component={LikesContainer}/>
-                        <Route path="/comments" exact component={CommentsContainer} />
+                        <Route path="/" exact component={HomePage}/>
+                        <Route path="/post" exact component={NewPostPage} />
+                        <Route path="/profile" exact component={ProfilePage} />
+                        <Route path="/likes" exact component={LikesPage}/>
+                        <Route path="/comments" exact component={CommentsPage} />
                     </div>
                 </Router>
             </Context.Provider>

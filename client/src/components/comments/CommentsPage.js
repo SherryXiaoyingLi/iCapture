@@ -1,7 +1,7 @@
 import React from 'react';
 import CommentForm from './CommentForm'
 
-class CommentsContainer extends React.Component {
+class CommentsPage extends React.Component {
     constructor(props) {
         super(props)
         this.state = {comments: []}
@@ -26,4 +26,4 @@ class CommentsContainer extends React.Component {
     }
 }
 
-export default CommentsContainer;
+export default CommentsPage;

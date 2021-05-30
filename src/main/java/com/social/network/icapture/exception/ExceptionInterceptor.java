@@ -1,6 +1,7 @@
 package com.social.network.icapture.exception;
 
 
+import com.amazonaws.AmazonServiceException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +39,13 @@ public class ExceptionInterceptor extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(
                 String.format("Exception thrown due to validation failure: %s", ex.getMessage()),
                 HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(AmazonServiceException.class)
+    public ResponseEntity<Object> handleAmazonServiceException(AmazonServiceException ex) {
+        return new ResponseEntity<>(
+                String.format("AmazonServiceException thrown: %s", ex.getMessage()),
+                HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

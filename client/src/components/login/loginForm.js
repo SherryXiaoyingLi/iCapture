@@ -10,13 +10,7 @@ function LoginForm({setAuth}) {
     var handleSubmit = async (event) =>  {
         event.preventDefault();
         let data = {"username": username, "password": password}
-        let response = await axios.post('http://localhost:8080/api/users/login', data, {
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization":
-                `${process.env.REACT_APP_BEARER_TOKEN}`
-            }
-        })
+        let response = await axios.post('http://localhost:8080/api/users/login', data)
         setAuth(response.data)
 
     }
