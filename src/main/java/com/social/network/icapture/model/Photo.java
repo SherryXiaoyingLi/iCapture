@@ -6,7 +6,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Document(collection = "photo")
@@ -26,8 +25,8 @@ public class Photo {
     private List<Long> comments;
 
 
-    public Photo(@NotNull long photoId, @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime timePosted, @NotNull String s3Url,
-                 @NotNull long userId, String text, List<Long> likedBy, List<Long> comments) {
+    public Photo(@NotNull long photoId, @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime timePosted,
+                 @NotNull String s3Url, @NotNull long userId, String text, List<Long> likedBy, List<Long> comments) {
         this.photoId = photoId;
         this.timePosted = timePosted;
         this.s3Url = s3Url;

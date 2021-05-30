@@ -3,7 +3,6 @@ package com.social.network.icapture.controller;
 
 import com.social.network.icapture.model.AuthenticationRequest;
 import com.social.network.icapture.model.AuthenticationResponse;
-import com.social.network.icapture.security.CustomUserDetails;
 import com.social.network.icapture.security.JwtTokenService;
 import com.social.network.icapture.service.UserService;
 import org.slf4j.Logger;

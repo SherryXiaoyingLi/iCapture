@@ -15,8 +15,9 @@ public class PhotoRepository {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public Photo insertPhoto(Photo photo) {
-        return mongoTemplate.save(photo);
+    public long insertPhoto(Photo photo) {
+        Photo newPhoto = mongoTemplate.save(photo);
+        return newPhoto.getPhotoId();
     }
 
     public Photo findOneById(long photoId) {
