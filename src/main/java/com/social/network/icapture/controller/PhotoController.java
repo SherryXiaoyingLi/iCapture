@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 
 @RestController
@@ -18,10 +20,12 @@ public class PhotoController {
     @Autowired
     private Logger logger;
 
-    @PostMapping("/upload")
-    public ResponseEntity<Long> addPhoto(@RequestBody Photo photo) {
+    @PostMapping("/upload/{userId}")
+    public ResponseEntity<Long> addPhoto(@RequestPart(value = "file") final MultipartFile multipartFile,
+                                         @RequestPart(value = "text") String text,
+                                         @PathVariable long userId) {
         logger.info("getting upload request");
-        long photoId = photoService.addPhoto(photo);
+        long photoId = photoService.addPhoto(multipartFile, userId, text);
         return new ResponseEntity<>(photoId, HttpStatus.OK);
     }
 
@@ -29,6 +33,12 @@ public class PhotoController {
     public ResponseEntity<List<Photo>> getPhotos() {
         List<Photo> photos = photoService.getAllPhotos();
         return new ResponseEntity<>(photos, HttpStatus.OK);
+    }
+
+    @GetMapping("/{photoId}")
+    public ResponseEntity<Object> getSinglePhoto() {
+        photoService.getPhoto();
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
 }
